@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:firstapp/category_route.dart';
 
 void main() => runApp(new MyApp());
 
@@ -66,27 +67,32 @@ class _RandomWordsState extends State<RandomWords> {
   }
 
   void _pushSaved() {
+    // Navigator.of(context).push(new MaterialPageRoute(
+    //   builder: (BuildContext context) {
+    //     final Iterable<ListTile> tiles = _save.map((WordPair wordPair) {
+    //       return new ListTile(
+    //         title: new Text(
+    //           wordPair.asPascalCase,
+    //           style: _biggerFont,
+    //         ),
+    //       );
+    //     });
+    //     final List<Widget> divider =
+    //         ListTile.divideTiles(context: context, tiles: tiles).toList();
+
+    //     return new Scaffold(
+    //       appBar: new AppBar(
+    //         title: const Text('Saved Suggestions'),
+    //       ),
+    //       body: new ListView(
+    //         children: divider,
+    //       ),
+    //     );
+    //   },
+    // ));
     Navigator.of(context).push(new MaterialPageRoute(
       builder: (BuildContext context) {
-        final Iterable<ListTile> tiles = _save.map((WordPair wordPair) {
-          return new ListTile(
-            title: new Text(
-              wordPair.asPascalCase,
-              style: _biggerFont,
-            ),
-          );
-        });
-        final List<Widget> divider =
-            ListTile.divideTiles(context: context, tiles: tiles).toList();
-
-        return new Scaffold(
-          appBar: new AppBar(
-            title: const Text('Saved Suggestions'),
-          ),
-          body: new ListView(
-            children: divider,
-          ),
-        );
+        return new CategoryRoute();
       },
     ));
   }
