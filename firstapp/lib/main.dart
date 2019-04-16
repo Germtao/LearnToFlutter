@@ -7,15 +7,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Welcome to Flutter',
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body: new Center(
-          child: new RandomWords(),
-        ),
-      ),
+      title: 'Startup Name Generator',
+      home: new RandomWords(),
     );
   }
 }
@@ -27,9 +20,40 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
+  final List<WordPair> _suggestions = <WordPair>[];
+  final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
+
+  Widget _buildSuggestions() {
+    return new ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: (BuildContext _context, int i) {
+        // 在每一列之前, 添加一个1像素高的分割线widget
+        if (i.isOdd) {
+          return new Divider();
+        }
+
+        final int index = i ~/ 2; // 语法 "i ~/ 2" 表示i除以2，但返回值是整形（向下取整)
+        if (index >= _suggestions.length) {
+          _suggestions.addAll(generateWordPairs().take(10));
+        }
+        return _buildRow(_suggestions[index]);
+      },
+    );
+  }
+
+  Widget _buildRow(WordPair wordPair) {
+    return ListTile(
+      title: new Text(wordPair.asPascalCase, style: _biggerFont),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final wordPair = new WordPair.random();
-    return new Text(wordPair.asPascalCase);
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Startup Name Generator'),
+      ),
+      body: _buildSuggestions(),
+    );
   }
 }
