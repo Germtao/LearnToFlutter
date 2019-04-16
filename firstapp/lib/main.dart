@@ -21,6 +21,7 @@ class RandomWords extends StatefulWidget {
 
 class _RandomWordsState extends State<RandomWords> {
   final List<WordPair> _suggestions = <WordPair>[];
+  final Set<WordPair> _save = new Set<WordPair>(); // 收藏 Set - 不会有重复数据
   final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
 
   Widget _buildSuggestions() {
@@ -42,8 +43,13 @@ class _RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildRow(WordPair wordPair) {
+    final bool alreadySaved = _save.contains(wordPair);
     return ListTile(
       title: new Text(wordPair.asPascalCase, style: _biggerFont),
+      trailing: new Icon(
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+      ),
     );
   }
 
