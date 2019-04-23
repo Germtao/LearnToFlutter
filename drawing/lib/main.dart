@@ -1,6 +1,32 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(Signature());
+void main() => runApp(Custom());
+
+class Custom extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      home: Center(
+        child: CustomButton('Hello'),
+      ),
+    );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final String label;
+  CustomButton(this.label);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return RaisedButton(
+      onPressed: () {},
+      child: Text(label),
+    );
+  }
+}
 
 class SignaturePainter extends CustomPainter {
   SignaturePainter(this.points);
