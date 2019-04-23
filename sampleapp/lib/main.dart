@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(SampleApp());
@@ -25,12 +26,22 @@ class SampleAppPage extends StatefulWidget {
 
 /// 设置状态变化
 class _SampleAppPageState extends State<SampleAppPage> {
-  String textToShow = "I Like Flutter";
-
-  void _updateText() {
+  bool toggle = true;
+  void _toggle() {
     setState(() {
-      textToShow = "Flutter is Awesome!";
+      toggle = !toggle;
     });
+  }
+
+  Widget _getToggleChild() {
+    if (toggle) {
+      return Text("Toggle One");
+    } else {
+      return CupertinoButton(
+        onPressed: () { print("Toggle Two Pressed!!!"); },
+        child: Text("Toggle Two"),
+      );
+    }
   }
 
   @override
@@ -40,10 +51,10 @@ class _SampleAppPageState extends State<SampleAppPage> {
         title: Text("Sample App"),
       ),
       body: Center(
-        child: Text(textToShow),
+        child: _getToggleChild(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _updateText,
+        onPressed: _toggle,
         tooltip: 'Update Text',
         child: Icon(Icons.update),
       ), // This trailing comma makes auto-formatting nicer for build methods.
