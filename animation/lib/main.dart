@@ -53,8 +53,20 @@ class _FadeAnimationState extends State<FadeAnimation>
         child: Container(
           child: FadeTransition(
             opacity: _curvedAnimation,
-            child: FlutterLogo(
-              size: 100.0,
+            child: GestureDetector(
+              child: RotationTransition(
+                turns: _curvedAnimation,
+                child: FlutterLogo(
+                  size: 200.0,
+                ),
+              ),
+              onDoubleTap: () {
+                if (_animationController.isCompleted) {
+                  _animationController.reverse();
+                } else {
+                  _animationController.forward();
+                }
+              },
             ),
           ),
         ),
